@@ -2,6 +2,7 @@
     "files.associations": {
         "inet.h": "c",
         "cstdio": "c",
-        "errormess.h": "c"
+        "errormess.h": "c",
+        "limits": "c"
     }
 }
