@@ -136,6 +136,8 @@ int main(int argc, char const* argv[])
     readhandle_inst.conn = conn_server_handle;
     pthread_create(tid_read, NULL, &read_conndata, (void*)&readhandle_inst);
 
+    pthread_join(tid_read, NULL);
+    pthread_join(tid_write, NULL);
     disconnect_from_server(&conn_server_handle);
     
 
