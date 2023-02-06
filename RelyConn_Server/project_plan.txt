@@ -1,0 +1,36 @@
+Server:
+    Thread 0:
+        create private key and public key for encryption
+
+        listen & accept 
+        set an index to the user with the most immediate number available (idk)
+
+        { 1, 0, 1, 1, 1, 0, 0, 0, 0}
+        //in this example the user will be set to the index 1
+
+        send the public key to the connected client
+        receive its public key
+        receive its username
+
+    Thread 1:
+        buffer x1024 x NUM_MAX_CONN
+        read
+        check string format
+        
+        if invalid:
+            discard
+        else:
+            check in the table for the name
+            if (exist)
+                select the socket for that connection
+                send the message to that connection
+
+
+    Thread 2:
+        write
+
+RSA:
+ (decrypted mess) public key A  -> private key B -> (encrypted mess)
+ |
+ |
+ (encrypted mess) private key A -> public key B -> (decrypted mess)
