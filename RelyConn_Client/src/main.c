@@ -143,6 +143,5 @@ int main(int argc, char const* argv[])
 
     printf("\nProgram terminated\n");
 
-    sleep(5);
     //valread = read(sock, buffer, sizeof(buffer));
 }

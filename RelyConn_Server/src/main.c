@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdbool.h>
+#include <sys/time.h> 
 
 #define PORT 6969
 #define MAX_HOSTS 10
@@ -37,19 +38,42 @@ pthread_t tid_listen;
 socket_local server_listener;
 client_handle clients[MAX_HOSTS];
 
+fd_set listener_set;
+int max_fd;
+
+void disconnect_client()
+{
+
+}
+
 void read_clients(void* args)
 {
+
     while(1)
     {
-
+        for(int i = 0; i < MAX_HOSTS; i++)
+        {
+            if (clients[i].active)
+            {
+                
+            }
+        }
     }
 }
 
 void write_clients(void* args)
 {
+    int max_fd;
+
     while(1)
     {
-        
+        for(int i = 0; i < MAX_HOSTS; i++)
+        {
+            if (clients[i].active)
+            {
+
+            }
+        }
     }
 }
 
@@ -95,7 +119,7 @@ void add_user(client_handle handle)
         //if position is empty 
         if(!clients[i].active)  
         {  
-            clients[i].sock = sock;
+            clients[i] = handle;
             clients[i].active = false;
             printf("Client added to list of sockets as %d\n" , i);  
             break;  
@@ -109,21 +133,47 @@ void listen_connections(void* args)
     int success_listen = listen(server_listener.sock, MAX_HOSTS);
     int new_socket;
 
+
+    FD_ZERO(&listener_set);
+    FD_SET(server_listener.sock, &listener_set);  
+
+    int size_addr = sizeof(server_listener.address);
+    
     while(1)
     {
-        
+        int activity = select(max_fd + 1, &listener_set, NULL, NULL, NULL);
+
+        if ((activity < 0))
+        {  
+            printf("select error");  
+        }
+
+        if (FD_ISSET(server_listener.sock, &listener_set))
+        {
+            if ((newConnection.sock = accept(server_listener.sock, 
+                    (struct sockaddr *)&newConnection.address, (socklen_t*)&size_addr))<0)  
+            {  
+                perror("accept");
+                exit(EXIT_FAILURE);
+            }
+
+            newConnection.active = true;
+            add_user(newConnection);
+
+            if (newConnection.sock > max_fd)
+            {
+                max_fd = newConnection.sock;
+            }
+            
+            FD_SET(newConnection.sock, &listener_set);
+        }
     }
-    if ((new_socket = accept(server_listener.sock, 
-            (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)  
-    {  
-        perror("accept");  
-        exit(EXIT_FAILURE);  
-    }  
-             
-    //inform user of socket number - used in send and receive commands 
-    printf("New connection , socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(address.sin_addr) , ntohs
-          (address.sin_port));  
+
     
+    //inform user of socket number - used in send and receive commands 
+    printf("New connection , socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(newConnection.address.sin_addr) , ntohs(newConnection.address.sin_port));  
+
+    char* message = "sei stato scoccato\n";    
     //send new connection greeting message 
     if( send(new_socket, message, strlen(message), 0) != strlen(message) )  
     {  
