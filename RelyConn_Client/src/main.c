@@ -7,7 +7,7 @@
 #include "errormess.h"
 #include <stdbool.h>
 
-#define PORT 6969
+#define PORT 25546
 #define EXIT_CMD "cmd|exit"
 #define MESSAGE_MAXLENGTH 128
 #define CMD_PREFIX "cmd|"
@@ -96,7 +96,7 @@ int connect_to_server(connto_server_handle* handle, const char* ip)
     handle->serv_addr.sin_port = htons(PORT);
 
     //convert the address and store it to the address holder struct
-    int success_convertbin = inet_pton(AF_INET, "192.168.1.16", &handle->serv_addr.sin_addr);
+    int success_convertbin = inet_pton(AF_INET, ip, &handle->serv_addr.sin_addr);
     if (success_convertbin <= 0)
     {
         print_error("Failed convertion address! The address was invalid");
@@ -112,6 +112,7 @@ int connect_to_server(connto_server_handle* handle, const char* ip)
     }
 
     handle->connected = true;
+    return 0;
 }
 
 void disconnect_from_server(connto_server_handle* handle)
@@ -125,9 +126,24 @@ int main(int argc, char const* argv[])
     pthread_t tid_read;
 
     //establish the connection to the main server
-    connect_to_server(&conn_server_handle, "127.0.0.1");
-
-
+    int connected = connect_to_server(&conn_server_handle, "127.0.0.1");
+    sleep(1);
+    if (connected < 0 )
+    {
+        printf("connection unsuccessful\n");
+    }
+    else
+    {
+        printf("connection successful");
+        char* message = "cmd|exit";
+        send(conn_server_handle.sock, message, strlen(message), 0);
+    }
+    
+    int num;
+    printf("write something to exit the program: ");
+    scanf("%d", &num);
+    
+    /*
     writehandle writehandle_inst;
     writehandle_inst.conn = conn_server_handle;
     pthread_create(tid_write, NULL, &write_conndata, (void*)&writehandle_inst);
@@ -138,6 +154,7 @@ int main(int argc, char const* argv[])
 
     pthread_join(tid_read, NULL);
     pthread_join(tid_write, NULL);
+    */
     disconnect_from_server(&conn_server_handle);
     
 
