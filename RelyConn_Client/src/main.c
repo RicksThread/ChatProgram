@@ -127,7 +127,6 @@ int main(int argc, char const* argv[])
 
     //establish the connection to the main server
     int connected = connect_to_server(&conn_server_handle, "127.0.0.1");
-    sleep(1);
     if (connected < 0 )
     {
         printf("connection unsuccessful\n");

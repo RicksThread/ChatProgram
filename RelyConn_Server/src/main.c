@@ -8,7 +8,7 @@
 #include <sys/time.h> 
 #include <string.h>
 #include <errno.h>
-#include "../../externals/uthash/src/uthash.h"
+#include "../../externals/uthash_lib/src/uthash.h"
 
 #define PORT 25546
 #define MAX_HOSTS 10
@@ -42,6 +42,8 @@ socket_local server_listener;
 client_handle* clients[MAX_HOSTS];
 int clients_connected = 0;
 
+pthread_mutex_t lock_disconnect;
+
 bool is_client_active(client_handle* client)
 {
     //printf("check if the client is active: %d\n", !(client == NULL));
@@ -51,17 +53,39 @@ bool is_client_active(client_handle* client)
     return true;
 }
 
-void disconnect_client(int index)
+void* delay_disconnect(void* args)
 {
-    printf("Someone disconnected index: %d\n", index);
-    if (is_client_active(clients[index]) )
-    {
-        close(clients[index]->sock);
-        free(clients[index]);
-        clients_connected--;
-    }
+    client_handle* handle_tempo = (client_handle*)args;
+
+    //This delay practically makes the chance of race conditions negligeble
+    sleep(1);
+    close(handle_tempo->sock);
+    free(handle_tempo);
+    pthread_exit(NULL);
 }
 
+void disconnect_client(int index)
+{
+    pthread_mutex_lock(&lock_disconnect);
+    if (is_client_active(clients[index]) )
+    {
+        printf("Someone disconnected index: %d\n", index);
+
+        //dispose the client: sockets, memory allocation and pointer value
+        client_handle* clienthandle_tmp = clients[index];
+        clients[index] = NULL;
+        
+        pthread_t tid_delaydisconnect;
+        pthread_create(&tid_delaydisconnect, NULL, &delay_disconnect, (void*)clienthandle_tmp);
+
+        clients_connected--;
+    }
+    pthread_mutex_unlock(&lock_disconnect);
+}
+
+/*
+disconnects all clients and it's thread safe
+*/
 void disconnect_clients()
 {
     for(int i = 0; i < MAX_HOSTS; i++)
@@ -82,8 +106,6 @@ void* read_clients(void* args)
     while(1)
     {
 
-
-
         //loop through all the players
         for(int i = 0; i < MAX_HOSTS; i++)
         {
@@ -100,14 +122,12 @@ void* read_clients(void* args)
                         disconnect_client(i);
                     }
                     else
-
                     {
                         //as a test it echoes it back
                         send(clients[i]->sock, clients[i]->buffer, strlen(clients[i]->buffer), 0);
-
-
+                        memset(clients[i]->buffer, 0, buffer_size);
                     }
-                    memset(clients[i]->buffer, 0, buffer_size);
+                    
                 
             }
         }
