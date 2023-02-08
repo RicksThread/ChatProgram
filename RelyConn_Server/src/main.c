@@ -8,7 +8,7 @@
 #include <sys/time.h> 
 #include <string.h>
 #include <errno.h>
-#include "../../external/uthash/include/uthash.h"
+
 
 #define PORT 10000
 #define MAX_HOSTS 10
