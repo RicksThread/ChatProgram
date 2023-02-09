@@ -1,19 +1,33 @@
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-void* test_thread()
+#define EXITCMD "cmd|exit"
+
+void* test_thread(void* args)
 {
-    printf("asdasd\n");
-    sleep(1);
-    pthread_exit((void*)34);
+    char* message = malloc(20);
+    printf("insert the message:");
+
+    fgets(message, 20, stdin);
+
+    pthread_exit(message);
 }
 
 int main()
 {
     pthread_t tid;
-    int sus;
+    char* sus;
     pthread_create(&tid, NULL, &test_thread, NULL);
     pthread_join(tid, &sus);
-    printf("value: %d\n", sus);
+
+    format_linestr(sus);
+
+    printf("message received: %s\n", sus);
+    if (strcmp(sus, EXITCMD) == 0)
+    {
+        printf("exit's message\n");
+    }
+    free(sus);
     return 0;
 }
