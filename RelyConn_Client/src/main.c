@@ -43,12 +43,16 @@ void read_conndata(void* args)
     readhandle read_handle_inst = *(readhandle*)args;
     connto_server_handle handle = read_handle_inst.conn;
 
+    printf("Start listening: \n");
     while(!is_terminated)
     {
-        read(handle.sock, buffer, sizeof(buffer));
+        recv(handle.sock, buffer, sizeof(buffer), 0);
 
-        printf("message: %s", buffer);
-        memset(buffer, 0, sizeof(buffer));
+        if (strlen(buffer) > 0)
+        {
+            printf("message received: %s\n\n", buffer);
+            memset(buffer, 0, sizeof(buffer));
+        }
     }
 }
 
@@ -59,20 +63,20 @@ void write_conndata(void* args)
     char message[MESSAGE_MAXLENGTH];
     while(is_terminated)
     {
-        printf("message: ");
+        printf("message to send: ");
         fgets(message, MESSAGE_MAXLENGTH, stdin);
         if (strcmp(message, EXIT_CMD))
         {
             is_terminated = true;           
-            printf("Exiting the program");
+            printf("\n**Exiting the program**\n");
+            pthread_exit(NULL);
         }
         else
         {
             send(handle.sock, message, strlen(message), 0);
-            printf("\nmessage sent\n");
+            printf("\n**message sent**\n");
+            memset(message, NULL, strlen(message));
         }
-        
-        printf("\n");
     }
 }
 
@@ -129,32 +133,38 @@ int main(int argc, char const* argv[])
     int connected = connect_to_server(&conn_server_handle, "127.0.0.1");
     if (connected < 0 )
     {
-        printf("connection unsuccessful\n");
+        perror("connection unsuccessful\n");
     }
     else
     {
-        printf("connection successful");
-        char* message = "cmd|exit";
-        send(conn_server_handle.sock, message, strlen(message), 0);
+        printf("connection successful\n");
+    
+        readhandle readhandle_inst;
+        readhandle_inst.conn = conn_server_handle;
+        int succ_read = pthread_create(&tid_read, NULL, &read_conndata, (void*)&readhandle_inst);
+        
+        if (succ_read < 0)
+        {
+            perror("thread read");
+            exit(EXIT_FAILURE);
+        }
+
+        writehandle writehandle_inst;
+        writehandle_inst.conn = conn_server_handle;
+        int succ_write = pthread_create(&tid_write, NULL, &write_conndata, (void*)&writehandle_inst);
+
+        
+        if (succ_write < 0)
+        {
+            perror("thread write");
+            exit(EXIT_FAILURE);
+        }
+        pthread_join(tid_write, NULL);
+        pthread_join(tid_read, NULL);
+
+        disconnect_from_server(&conn_server_handle);
     }
     
-    int num;
-    printf("write something to exit the program: ");
-    scanf("%d", &num);
-    
-    /*
-    writehandle writehandle_inst;
-    writehandle_inst.conn = conn_server_handle;
-    pthread_create(tid_write, NULL, &write_conndata, (void*)&writehandle_inst);
-
-    readhandle readhandle_inst;
-    readhandle_inst.conn = conn_server_handle;
-    pthread_create(tid_read, NULL, &read_conndata, (void*)&readhandle_inst);
-
-    pthread_join(tid_read, NULL);
-    pthread_join(tid_write, NULL);
-    */
-    disconnect_from_server(&conn_server_handle);
     
 
     printf("\nProgram terminated\n");

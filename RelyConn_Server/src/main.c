@@ -100,8 +100,6 @@ void disconnect_clients()
 void* read_clients(void* args)
 {
     int buffer_size = BUFFER_LENGTH;
-    fd_set listener_set;
-    int max_fd;
 
     while(1)
     {
@@ -136,30 +134,8 @@ void* read_clients(void* args)
 
 void write_clients(void* args)
 {
-    fd_set listener_set;
-    int max_fd;
     while(true)
     {
-        FD_ZERO(&listener_set);
-        FD_SET(server_listener.sock, &listener_set);
-        max_fd = server_listener.sock;
-        
-
-        for(int i = 0; i < MAX_HOSTS; i++)
-        {
-            if (is_client_active(clients[i]))
-            {
-                int sock = clients[i]->sock;
-                FD_SET(sock, &listener_set);
-                if (sock > max_fd)
-                    max_fd = sock;
-            }
-        }
-        
-        
-        int activity = select(max_fd + 1, &listener_set, NULL, NULL, NULL);
-        if ((activity < 0))
-            perror("select error");
     }
 }
 
@@ -239,9 +215,9 @@ void* listen_connections(void* args)
         }
         else
         {
-            printf("asda\n\n");
             add_user(newConnection);
-
+            char* message = "sis\n";
+            send(newConnection->sock, message, strlen(message), 0);
         }
     }
     
@@ -287,6 +263,7 @@ int main(int argc, char const* argv[])
 
     
     shutdown(server_listener.sock, SHUT_RDWR);
+    
     
     return 0;
 }

@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "uthash.h": "c"
+        "uthash.h": "c",
+        "strformatting.h": "c"
     }
 }
