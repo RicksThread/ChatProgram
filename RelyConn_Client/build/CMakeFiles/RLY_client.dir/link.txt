@@ -1,0 +1,1 @@
+/usr/bin/cc -Wall CMakeFiles/RLY_client.dir/src/main.c.o -o RLY_client  libutils.a 

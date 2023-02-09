@@ -1,0 +1,4 @@
+/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles/utils.dir
+/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles/RLY_server.dir
+/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles/edit_cache.dir
+/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles/rebuild_cache.dir

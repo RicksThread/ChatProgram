@@ -8,9 +8,11 @@
 #include <sys/time.h> 
 #include <string.h>
 #include <errno.h>
-#include "../../externals/uthash_lib/src/uthash.h"
+#include "uthash.h"
+#include "errormess.h"
+#include "strformatting.h"
 
-#define PORT 25546
+#define PORT 25547
 #define MAX_HOSTS 10
 
 #define BUFFER_LENGTH 1024
@@ -166,7 +168,7 @@ void init_server()
     //converts from host byte order to network byte order (idk what it is)
     address.sin_port = htons(PORT);
 
-    int success_bind = bind(sock, (struct sockaddr*)&address, (struct socklen_t*)sizeof(address));
+    int success_bind = bind(sock, (struct sockaddr*)&address, (socklen_t)sizeof(address));
     if (success_bind < 0)
     {
         fprintf(stderr, "error code: %d; bind: %s\n", errno, strerror(errno));
@@ -177,7 +179,6 @@ void init_server()
 
     server_listener.address = address;
     server_listener.sock = sock;
-    return SUCCESS_OP;
 }
 
 void add_user(client_handle* handle)

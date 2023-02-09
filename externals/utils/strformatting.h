@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef STRFORMATTING
 #define STRFORMATTING
@@ -9,5 +10,5 @@ the result is a string with the \n removed
 */
 void format_linestr(char* str);
 
-char** seperate_str_store(char* str, char* delimiter, int n);
+char** seperate_str_store(char* str, const char* delimiter, int n);
 #endif

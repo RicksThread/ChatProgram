@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "uthash.h": "c",
-        "strformatting.h": "c"
+        "strformatting.h": "c",
+        "errormess.h": "c",
+        "socket.h": "c"
     }
 }

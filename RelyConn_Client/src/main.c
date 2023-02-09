@@ -4,10 +4,11 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "errormess.h"
 #include <stdbool.h>
+#include "errormess.h"
+#include "strformatting.h"
 
-#define PORT 25546
+#define PORT 25547
 #define EXIT_CMD "cmd|exit"
 #define MESSAGE_MAXLENGTH 128
 #define CMD_PREFIX "cmd|"
@@ -38,7 +39,7 @@ bool is_terminated = false;
 // formatted cmd sent
 // cmd|{command}
 
-void read_conndata(void* args)
+void* read_conndata(void* args)
 {
     readhandle read_handle_inst = *(readhandle*)args;
     connto_server_handle handle = read_handle_inst.conn;
@@ -48,36 +49,39 @@ void read_conndata(void* args)
     {
         recv(handle.sock, buffer, sizeof(buffer), 0);
 
-        if (strlen(buffer) > 0)
+        if (strlen(buffer) >= 0)
         {
             printf("message received: %s\n\n", buffer);
             memset(buffer, 0, sizeof(buffer));
         }
     }
+    pthread_exit(0);
 }
 
-void write_conndata(void* args)
+void* write_conndata(void* args)
 {
     writehandle write_handle_inst = *(writehandle*)args;
     connto_server_handle handle = write_handle_inst.conn;
     char message[MESSAGE_MAXLENGTH];
-    while(is_terminated)
+    while(!is_terminated)
     {
         printf("message to send: ");
         fgets(message, MESSAGE_MAXLENGTH, stdin);
-        if (strcmp(message, EXIT_CMD))
+        format_linestr(message);
+        if (strcmp(message, EXIT_CMD) == 0)
         {
             is_terminated = true;           
             printf("\n**Exiting the program**\n");
-            pthread_exit(NULL);
+            pthread_exit(0);
         }
         else
         {
             send(handle.sock, message, strlen(message), 0);
             printf("\n**message sent**\n");
-            memset(message, NULL, strlen(message));
+            memset(message, 0, strlen(message));
         }
     }
+    pthread_exit(0);
 }
 
 int connect_to_server(connto_server_handle* handle, const char* ip)
@@ -133,7 +137,7 @@ int main(int argc, char const* argv[])
     int connected = connect_to_server(&conn_server_handle, "127.0.0.1");
     if (connected < 0 )
     {
-        perror("connection unsuccessful\n");
+        print_error("connection unsuccessful\n");
     }
     else
     {
@@ -145,7 +149,7 @@ int main(int argc, char const* argv[])
         
         if (succ_read < 0)
         {
-            perror("thread read");
+            print_error("thread read");
             exit(EXIT_FAILURE);
         }
 
@@ -156,11 +160,11 @@ int main(int argc, char const* argv[])
         
         if (succ_write < 0)
         {
-            perror("thread write");
+            print_error("thread write");
             exit(EXIT_FAILURE);
         }
         pthread_join(tid_write, NULL);
-        pthread_join(tid_read, NULL);
+        //pthread_join(tid_read, NULL);
 
         disconnect_from_server(&conn_server_handle);
     }

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libutils.a CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o
+/usr/bin/ranlib libutils.a
