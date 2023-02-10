@@ -7,7 +7,8 @@
                 "${workspaceFolder}/include/",
                 "/usr/include",
                 "/usr/include/x86_64-linux-gnu",
-                "${workspaceFolder}/externals/uthash_lib/src"
+                "${workspaceFolder}/externals/uthash_lib/src",
+                "${workspaceFolder}/externals/utils"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

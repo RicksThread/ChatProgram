@@ -198,6 +198,13 @@ void add_user(client_handle* handle)
     }  
 }
 
+void* handle_clietlogin(void* args)
+{
+    client_handle* client = (client_handle*)args;
+
+    
+}
+
 void* listen_connections(void* args)
 {
     printf("Start listening\n");
@@ -217,7 +224,7 @@ void* listen_connections(void* args)
         else
         {
             add_user(newConnection);
-            char* message = "sis\n";
+            char* message = "connected\n";
             send(newConnection->sock, message, strlen(message), 0);
         }
     }
@@ -230,6 +237,7 @@ int main(int argc, char const* argv[])
 
 
     init_server();
+
     printf("\nserver initialized\n");
     int success_listener = pthread_create(&tid_listener, NULL, &listen_connections, NULL);
     

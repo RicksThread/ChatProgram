@@ -3,6 +3,8 @@
         "uthash.h": "c",
         "strformatting.h": "c",
         "errormess.h": "c",
-        "socket.h": "c"
+        "socket.h": "c",
+        "errno.h": "c",
+        "error_handling.h": "c"
     }
 }

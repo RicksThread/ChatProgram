@@ -5,8 +5,10 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdbool.h>
+#include <errno.h>
 #include "errormess.h"
 #include "strformatting.h"
+#include "error_handling.h"
 
 #define PORT 25547
 #define EXIT_CMD "cmd|exit"
@@ -32,7 +34,9 @@ typedef struct
 
 connto_server_handle conn_server_handle;
 char buffer[1024] = { 0 };
-bool is_terminated = false;
+
+char* username;
+
 
 // formatted data sent/received
 // {name_src}|{message}
@@ -45,7 +49,7 @@ void* read_conndata(void* args)
     connto_server_handle handle = read_handle_inst.conn;
 
     printf("Start listening: \n");
-    while(!is_terminated)
+    while(1)
     {
         recv(handle.sock, buffer, sizeof(buffer), 0);
 
@@ -63,15 +67,14 @@ void* write_conndata(void* args)
     writehandle write_handle_inst = *(writehandle*)args;
     connto_server_handle handle = write_handle_inst.conn;
     char message[MESSAGE_MAXLENGTH];
-    while(!is_terminated)
+    while(1)
     {
         printf("message to send: ");
         fgets(message, MESSAGE_MAXLENGTH, stdin);
         format_linestr(message);
         if (strcmp(message, EXIT_CMD) == 0)
-        {
-            is_terminated = true;           
-            printf("\n**Exiting the program**\n");
+        {           
+            printf("\n**Exiting the server**\n");
             pthread_exit(0);
         }
         else
@@ -84,8 +87,9 @@ void* write_conndata(void* args)
     pthread_exit(0);
 }
 
-int connect_to_server(connto_server_handle* handle, const char* ip)
+result_check connect_to_server(connto_server_handle* handle, const char* ip)
 {
+    result_check check;
     handle->connected = false;
     int success_connect;
 
@@ -96,8 +100,8 @@ int connect_to_server(connto_server_handle* handle, const char* ip)
 
     if (handle->sock < 0)
     {
-        print_error("Failed socket creation");
-        return -1;
+        check = get_error_sys("socket creation: ");
+        return check;
     }
 
     handle->serv_addr.sin_family = AF_INET;
@@ -107,20 +111,21 @@ int connect_to_server(connto_server_handle* handle, const char* ip)
     int success_convertbin = inet_pton(AF_INET, ip, &handle->serv_addr.sin_addr);
     if (success_convertbin <= 0)
     {
-        print_error("Failed convertion address! The address was invalid");
-        return -1;
+        check = get_error_sys("Failed convertion address! The address was invalid; ");
+        return check;
     }
 
     success_connect = connect(handle->sock, (struct sockaddr*)&handle->serv_addr, sizeof(handle->serv_addr));
 
     if (success_connect < 0)
     {
-        print_error("Connection to specified address failed!");
-        return -1;
+        check = get_error_sys("Connection to specified address failed! ");
+        return check;
     }
 
     handle->connected = true;
-    return 0;
+    check.iserror = 0;
+    return check;
 }
 
 void disconnect_from_server(connto_server_handle* handle)
@@ -128,28 +133,77 @@ void disconnect_from_server(connto_server_handle* handle)
     close(handle->sock);
 }
 
+result_check login(const char* username)
+{
+    result_check check;
+    if (!conn_server_handle.connected)
+    {
+        check = get_error("failed to login, server is not connected");
+        return check;
+    }
+
+
+    char error[1];
+
+    send(conn_server_handle.sock, username, strlen(username), 0);
+    recv(conn_server_handle.sock, error, 1, 0);
+    if (error[0] > 0)
+    {
+        check.iserror = 1;
+        switch(error[0])
+        {
+            case 1:
+                check.error_mess = "username is too short";
+                break;
+            case 2:
+                check.error_mess = "username is already used";
+                break;
+            default:
+                check.error_mess = "unknown username error";
+                break;
+        }
+        return check;
+    }
+
+    check.iserror = 0;
+    return check;
+}
+
 int main(int argc, char const* argv[])
 {
     pthread_t tid_write;
     pthread_t tid_read;
 
+    printf("Insert the username: ");
+    scanf("%s", username);
+
+
     //establish the connection to the main server
-    int connected = connect_to_server(&conn_server_handle, "127.0.0.1");
-    if (connected < 0 )
+    result_check check_conn = connect_to_server(&conn_server_handle, "127.0.0.1");
+    if (check_conn.iserror)
     {
-        print_error("connection unsuccessful\n");
+        printf("connection unsuccessful\n");
     }
     else
     {
         printf("connection successful\n");
-    
+
+        result_check check_login = login(username);
+        if (check_login.iserror)
+        {
+            print_error(check_login.error_mess);
+            exit(EXIT_FAILURE);
+        }
+
+        
+
         readhandle readhandle_inst;
         readhandle_inst.conn = conn_server_handle;
         int succ_read = pthread_create(&tid_read, NULL, &read_conndata, (void*)&readhandle_inst);
         
         if (succ_read < 0)
         {
-            print_error("thread read");
+            print_errorno("thread read");
             exit(EXIT_FAILURE);
         }
 
@@ -160,7 +214,7 @@ int main(int argc, char const* argv[])
         
         if (succ_write < 0)
         {
-            print_error("thread write");
+            print_errorno("thread write");
             exit(EXIT_FAILURE);
         }
         pthread_join(tid_write, NULL);
