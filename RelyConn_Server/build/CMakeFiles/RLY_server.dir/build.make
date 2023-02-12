@@ -93,6 +93,7 @@ RLY_server_EXTERNAL_OBJECTS =
 RLY_server: CMakeFiles/RLY_server.dir/src/main.c.o
 RLY_server: CMakeFiles/RLY_server.dir/build.make
 RLY_server: libutils.a
+RLY_server: libstdrely.a
 RLY_server: CMakeFiles/RLY_server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable RLY_server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RLY_server.dir/link.txt --verbose=$(VERBOSE)

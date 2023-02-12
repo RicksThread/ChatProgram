@@ -114,8 +114,14 @@ CMakeFiles/RLY_server.dir/src/main.c.o: ../src/main.c \
   /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.h \
   /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.h \
   /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h \
-  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h
+  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h \
+  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_message.h \
+  ../src/rly_decryption.h
 
+
+../src/rly_decryption.h:
+
+/home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_message.h:
 
 /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h:
 

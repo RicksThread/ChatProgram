@@ -13,6 +13,8 @@
 #include "strformatting.h"
 #include "stdrely_accounting.h"
 #include "stdrely_cmd.h"
+#include "stdrely_message.h"
+#include "rly_decryption.h"
 
 #define PORT 10003
 #define MAX_HOSTS 10
@@ -49,6 +51,9 @@ socket_local server_listener;
 client_handle* clients[MAX_HOSTS];
 
 client_handle* clients_table = NULL;
+pthread_t tid_listener, tid_reader, tid_writer;
+
+bool is_terminated = false;
 
 int clients_connected = 0;
 
@@ -67,7 +72,7 @@ void close_client(client_handle* client)
 {
     if (is_client_active(client))
     {
-        printf("Close connection: %s", client->account.username);
+        printf("Close connection: %s\n", client->account.username);
         //dispose the client: sockets, memory allocation and pointer value
         
         close(client->sock);
@@ -75,15 +80,6 @@ void close_client(client_handle* client)
     }
 }
 
-void* delay_disconnect(void* args)
-{
-    client_handle* handle_tempo = (client_handle*)args;
-
-    //This delay practically makes the chance of race conditions negligeble
-    sleep(1);
-    close_client(handle_tempo);
-    pthread_exit(NULL);
-}
 
 void disconnect_client_index(int index)
 {
@@ -93,22 +89,24 @@ void disconnect_client_index(int index)
 
         //dispose the client: sockets, memory allocation and pointer value
         client_handle* clienthandle_tmp = clients[index];
-        printf("disconnected: %s, index %d\n", clienthandle_tmp->account.username, index);
+        printf("\ndisconnected: %s, index %d\n\n", clienthandle_tmp->account.username, index);
 
         clients[index] = NULL;
         HASH_DEL(clients_table, clienthandle_tmp);
-        pthread_t tid_delaydisconnect;
-        pthread_create(&tid_delaydisconnect, NULL, &delay_disconnect, (void*)clienthandle_tmp);
+        close_client(clienthandle_tmp);
 
         clients_connected--;
     }
     pthread_mutex_unlock(&lock_disconnect);
+
 }
 
 void disconnect_client(client_handle* client)
 {
+    printf("disconneting client: %s\n", client->account.username);
     for(int i = 0; i < MAX_HOSTS; i++)
     {
+        printf("iterating clients: %d; is same = %d\n", i, clients[i] == client);
         if (clients[i] == client)
         {
             disconnect_client_index(i);
@@ -225,14 +223,16 @@ void* read_clients(void* args)
 
                     client_handle* client_dest;
                     char* dest = message_formatted.strs[0];
-                    //char* message_payload = message_formatted.strs[1];
+                    char* message_payload = message_formatted.strs[1];
 
                     HASH_FIND_STR(clients_table, dest, client_dest);
 
                     if (client_dest != NULL)
                     {
-                        //as a test it echoes it back
-                        send(client_dest->sock, clients[i]->buffer, strlen(clients[i]->buffer), 0);
+                        char message_tosend[MESSAGE_USER_LENGTH];
+                        sprintf(message_tosend, "%s|%s", clients[i]->account.username, message_payload);
+
+                        send(client_dest->sock, message_tosend, strlen(message_tosend), 0);
                         memset(clients[i]->buffer, 0, strlen(clients[i]->buffer));
                         free_str_array(&message_formatted);   
                     }
@@ -255,6 +255,7 @@ void* write_clients(void* args)
 {
     char command[128];
 
+
     while(true)
     {
         fgets(command, 127, stdin);
@@ -272,16 +273,20 @@ void* write_clients(void* args)
 
             if (target != NULL)
             {
-                char* message_kick = cmd_segments.strs[2];
-                printf("kicking user: %s, reason: %s", target->account.username, message_kick);
+                char* reason_kick = cmd_segments.strs[2];
+                char message_kick[150];
+                sprintf(message_kick, "%s%s", PREFIX_KICK, reason_kick);
+                printf("\nkicking user: %s, reason: %s\n", target->account.username, reason_kick);
                 send(target->sock, message_kick, strlen(message_kick), 0);
                 disconnect_client(target);
+
             }
 
             free_str_array(&cmd_segments);
         }
         else if(strcmp(command, CMD_END) == 0)
         {
+            is_terminated = true;
             pthread_exit(NULL);
         } 
         memset(command, 0, 127);
@@ -364,7 +369,6 @@ void* handle_client_login(void* args)
 
         printf("Data retrieved: %s; length of username: %d\n", username, username_length);
         
-     
         //making sure the username is valid
         {
             if (username_length < USERNAME_MINLENGTH)
@@ -450,11 +454,13 @@ void* listen_connections(void* args)
 
 int main(int argc, char const* argv[])
 {
-    pthread_t tid_listener, tid_reader, tid_writer;
 
     //initialize the server and create the threads for listening for connections and reading the incoming data from the users
     init_server();
     printf("\nserver initialized\n");
+
+    pthread_mutex_init(&lock_disconnect, NULL);
+
     int success_listener = pthread_create(&tid_listener, NULL, &listen_connections, NULL);
     
     if (success_listener <0 )
@@ -478,19 +484,15 @@ int main(int argc, char const* argv[])
         exit(EXIT_FAILURE);
     }
 
-    pthread_join(tid_writer, NULL);
-    disconnect_clients();
-    
-    /*
-    valread = read(new_socket, buffer, sizeof(buffer));
-    printf("%s\n", buffer);
-    send(new_socket, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
-    close(new_socket);
-    
-    */
+    while(!is_terminated) { sleep(0.5);}
 
-    
+    pthread_cancel(tid_listener);
+    pthread_cancel(tid_reader);
+    pthread_cancel(tid_writer);
+
+    disconnect_clients();
+
+    pthread_mutex_destroy(&lock_disconnect);
     shutdown(server_listener.sock, SHUT_RDWR);
     
     

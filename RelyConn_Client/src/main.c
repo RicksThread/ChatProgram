@@ -6,11 +6,13 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <errno.h>
+
 #include "errormess.h"
 #include "strformatting.h"
 #include "error_handling.h"
 #include "stdrely_cmd.h"
 #include "stdrely_accounting.h"
+#include "formatter_message.h"
 
 #define PORT 10003
 #define MESSAGE_MAXLENGTH 128
@@ -36,6 +38,9 @@ connto_server_handle conn_server_handle;
 char buffer[1024] = { 0 };
 
 account_data account;
+bool is_terminated = false;
+
+#define REFRESH_LISTENER_RATE 300000
 
 // formatted data sent/received
 // {name_src}|{message}
@@ -47,18 +52,40 @@ void* read_conndata(void* args)
     readhandle read_handle_inst = *(readhandle*)args;
     connto_server_handle handle = read_handle_inst.conn;
 
+
+
+    fd_set listener_fd;
+    struct timeval tv;
+
     printf("Start listening: \n");
     while(1)
     {
-        recv(handle.sock, buffer, sizeof(buffer), 0);
+        //reset work variables
+        tv.tv_sec = 0;
+        tv.tv_usec = REFRESH_LISTENER_RATE;
 
-        if (strlen(buffer) > 0)
+        FD_ZERO(&listener_fd);
+        FD_SET(conn_server_handle.sock, &listener_fd);
+
+        //wait for any sockets activity
+        int activity = select(conn_server_handle.sock + 1, &listener_fd, NULL, NULL, &tv);
+        if (activity < 0 && (errno!=EINTR))
         {
+            print_errorno("select pool for reading filedescriptors;");
+        }
+
+        int valread = recv(handle.sock, buffer, sizeof(buffer), 0);
+
+        if (valread > 0)
+        {
+            format_usermessage(buffer);
             printf("\nmessage received: %s\n\n", buffer);
             memset(buffer, 0, sizeof(buffer));
         }
         else
         {
+            printf("Disconnected from server!\n");
+            is_terminated = true;
             break;
         }
     }
@@ -80,6 +107,7 @@ void* write_conndata(void* args)
         if (strcmp(message, CMD_EXIT) == 0)
         {           
             printf("\n**Exiting the server**\n");
+            is_terminated = true;
             pthread_exit(0);
         }
         else
@@ -227,8 +255,7 @@ int main(int argc, char const* argv[])
             print_errorno("thread write");
             exit(EXIT_FAILURE);
         }
-        pthread_join(tid_write, NULL);
-        //pthread_join(tid_read, NULL);
+        while(!is_terminated) { sleep(0.5); }
 
         disconnect_from_server(&conn_server_handle);
     }

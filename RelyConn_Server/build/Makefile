@@ -130,6 +130,19 @@ utils/fast:
 .PHONY : utils/fast
 
 #=============================================================================
+# Target rules for targets named stdrely
+
+# Build rule for target.
+stdrely: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 stdrely
+.PHONY : stdrely
+
+# fast build rule for target.
+stdrely/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/build
+.PHONY : stdrely/fast
+
+#=============================================================================
 # Target rules for targets named RLY_server
 
 # Build rule for target.
@@ -141,6 +154,30 @@ RLY_server: cmake_check_build_system
 RLY_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_server.dir/build.make CMakeFiles/RLY_server.dir/build
 .PHONY : RLY_server/fast
+
+home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.o: home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.i: home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.s: home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s
 
 home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o: home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o
@@ -247,7 +284,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... RLY_server"
+	@echo "... stdrely"
 	@echo "... utils"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.s"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.s"

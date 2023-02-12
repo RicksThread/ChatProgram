@@ -1,1 +1,1 @@
-/usr/bin/cc -Wall CMakeFiles/RLY_server.dir/src/main.c.o -o RLY_server  libutils.a 
+/usr/bin/cc -Wall CMakeFiles/RLY_server.dir/src/main.c.o -o RLY_server  libutils.a libstdrely.a 

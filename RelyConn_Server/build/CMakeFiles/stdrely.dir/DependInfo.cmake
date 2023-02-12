@@ -8,13 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/rick/Desktop/repos/RelyConn/RelyConn_Server/src/main.c" "CMakeFiles/RLY_server.dir/src/main.c.o" "gcc" "CMakeFiles/RLY_server.dir/src/main.c.o.d"
+  "/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c" "CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o" "gcc" "CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles/utils.dir/DependInfo.cmake"
-  "/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles/stdrely.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
