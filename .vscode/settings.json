@@ -5,6 +5,7 @@
         "errormess.h": "c",
         "socket.h": "c",
         "errno.h": "c",
-        "error_handling.h": "c"
+        "error_handling.h": "c",
+        "stdrely_accounting.h": "c"
     }
 }

@@ -1,0 +1,23 @@
+#ifndef STDACCOUNTING_H
+#define STDACCOUNTING_H
+
+#define USERNAME_MAXLENGTH 15
+#define USERNAME_MINLENGTH 5
+
+#define ERROR_ACC_USERNAME_EXISTING 0
+#define ERROR_ACC_USERNAME_SHORT -1
+#define ERROR_ACC_USERNAME_LONG -2
+
+#define SUCCESSFUL_LOGIN 1
+
+#define ACCOUNT_USERNAME_INDEX 0
+#define ACCOUNT_PASSWORD_INDEX 1
+
+
+typedef struct account_data
+{
+    char username[USERNAME_MAXLENGTH];
+}account_data;
+
+
+#endif

@@ -69,10 +69,24 @@ include CMakeFiles/utils.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/utils.dir/flags.make
 
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o: CMakeFiles/utils.dir/flags.make
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o: CMakeFiles/utils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c > CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s
+
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o: CMakeFiles/utils.dir/flags.make
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o: CMakeFiles/utils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c
 
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.i: cmake_force
@@ -86,7 +100,7 @@ CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o: CMakeFiles/utils.dir/flags.make
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o: CMakeFiles/utils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c
 
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.i: cmake_force
@@ -99,17 +113,19 @@ CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatt
 
 # Object files for target utils
 utils_OBJECTS = \
+"CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o" \
 "CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o" \
 "CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o"
 
 # External object files for target utils
 utils_EXTERNAL_OBJECTS =
 
+libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
 libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o
 libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o
 libutils.a: CMakeFiles/utils.dir/build.make
 libutils.a: CMakeFiles/utils.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C static library libutils.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C static library libutils.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/utils.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/utils.dir/link.txt --verbose=$(VERBOSE)
 

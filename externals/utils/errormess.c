@@ -7,5 +7,5 @@ void print_errorno(char* mess)
 
 void print_error(char* mess)
 {
-    printf("\n$s\n", mess);
+    printf("\n%s\n", mess);
 }

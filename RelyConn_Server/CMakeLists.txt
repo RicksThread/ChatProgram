@@ -14,9 +14,11 @@ string(APPEND CMAKE_C_FLAGS "-Wall")
 
 #find all the src files for the utils
 file(GLOB_RECURSE UTILS_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/utils/*.c)
+#file(GLOB_RECURSE STDRELY_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/stdrely/*.c)
 
 #create the library archive (.a) through the source files
 add_library(utils STATIC ${UTILS_SRCS})
+#add_library(stdrely STATIC ${STDRELY_SRCS})
 
 file(GLOB_RECURSE SRC_FILES src/*.c)
 
@@ -30,4 +32,5 @@ target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR
 
 #include external headers
 target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/utils)
+target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/stdrely)
 target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/uthash_lib/src)

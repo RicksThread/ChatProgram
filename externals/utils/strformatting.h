@@ -4,11 +4,28 @@
 #ifndef STRFORMATTING
 #define STRFORMATTING
 
+typedef struct str_array
+{
+    int length;
+    char** strs;
+}str_array;
+
+
 /*
-formats a string that ends with a \n\0 which is usually returned by input streams;
-the result is a string with the \n removed
+formats a string that ends with a \n\0 which is usually returned by input streams (I.E scanf or get).
+The result is a string with the \n replaced by \0
 */
 void format_linestr(char* str);
 
-char** seperate_str_store(char* str, const char* delimiter, int n);
+/*
+splits a string where the character is the same as the delimiter; in doing so it allocates in dynamic memory (TO FREE!)
+*/
+str_array split_str(char* str, const char* delimiter);
+
+/*
+free a str array
+*/
+void free_str_array(str_array* str_array);
+
+
 #endif

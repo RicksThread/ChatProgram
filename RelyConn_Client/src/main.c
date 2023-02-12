@@ -9,11 +9,11 @@
 #include "errormess.h"
 #include "strformatting.h"
 #include "error_handling.h"
+#include "stdrely_cmd.h"
+#include "stdrely_accounting.h"
 
-#define PORT 25547
-#define EXIT_CMD "cmd|exit"
+#define PORT 10003
 #define MESSAGE_MAXLENGTH 128
-#define CMD_PREFIX "cmd|"
 
 typedef struct
 {
@@ -35,8 +35,7 @@ typedef struct
 connto_server_handle conn_server_handle;
 char buffer[1024] = { 0 };
 
-char* username;
-
+account_data account;
 
 // formatted data sent/received
 // {name_src}|{message}
@@ -53,10 +52,14 @@ void* read_conndata(void* args)
     {
         recv(handle.sock, buffer, sizeof(buffer), 0);
 
-        if (strlen(buffer) >= 0)
+        if (strlen(buffer) > 0)
         {
-            printf("message received: %s\n\n", buffer);
+            printf("\nmessage received: %s\n\n", buffer);
             memset(buffer, 0, sizeof(buffer));
+        }
+        else
+        {
+            break;
         }
     }
     pthread_exit(0);
@@ -64,15 +67,17 @@ void* read_conndata(void* args)
 
 void* write_conndata(void* args)
 {
+    printf("CHAT CREATED!\n");
     writehandle write_handle_inst = *(writehandle*)args;
     connto_server_handle handle = write_handle_inst.conn;
     char message[MESSAGE_MAXLENGTH];
     while(1)
     {
-        printf("message to send: ");
         fgets(message, MESSAGE_MAXLENGTH, stdin);
+
+        //remove the /n from the message to compare it to other strings without to much hassle
         format_linestr(message);
-        if (strcmp(message, EXIT_CMD) == 0)
+        if (strcmp(message, CMD_EXIT) == 0)
         {           
             printf("\n**Exiting the server**\n");
             pthread_exit(0);
@@ -80,7 +85,6 @@ void* write_conndata(void* args)
         else
         {
             send(handle.sock, message, strlen(message), 0);
-            printf("\n**message sent**\n");
             memset(message, 0, strlen(message));
         }
     }
@@ -93,11 +97,9 @@ result_check connect_to_server(connto_server_handle* handle, const char* ip)
     handle->connected = false;
     int success_connect;
 
-
     //create the socket to connect to the server
     //IPV4 with TCP protocol 
     handle->sock = socket(AF_INET, SOCK_STREAM, 0);
-
     if (handle->sock < 0)
     {
         check = get_error_sys("socket creation: ");
@@ -133,7 +135,7 @@ void disconnect_from_server(connto_server_handle* handle)
     close(handle->sock);
 }
 
-result_check login(const char* username)
+result_check handle_login(char* username)
 {
     result_check check;
     if (!conn_server_handle.connected)
@@ -142,24 +144,27 @@ result_check login(const char* username)
         return check;
     }
 
-
     char error[1];
 
-    send(conn_server_handle.sock, username, strlen(username), 0);
+    send(conn_server_handle.sock, account.username, strlen(account.username), 0);
     recv(conn_server_handle.sock, error, 1, 0);
-    if (error[0] > 0)
+
+    if ((int)error[0] != SUCCESSFUL_LOGIN)
     {
         check.iserror = 1;
-        switch(error[0])
+        switch((int)error[0])
         {
-            case 1:
-                check.error_mess = "username is too short";
+            case ERROR_ACC_USERNAME_EXISTING:
+                check.error_mess = "LOGIN FAILED! Username is already used";
                 break;
-            case 2:
-                check.error_mess = "username is already used";
+            case ERROR_ACC_USERNAME_LONG:
+                check.error_mess = "LOGIN FAILED! Username is too long";
+                break;
+            case ERROR_ACC_USERNAME_SHORT:
+                check.error_mess = "LOGIN FAILED! Username is too short";
                 break;
             default:
-                check.error_mess = "unknown username error";
+                check.error_mess = "LOGIN FAILED! Unknown username error";
                 break;
         }
         return check;
@@ -174,29 +179,34 @@ int main(int argc, char const* argv[])
     pthread_t tid_write;
     pthread_t tid_read;
 
-    printf("Insert the username: ");
-    scanf("%s", username);
-
-
     //establish the connection to the main server
+
     result_check check_conn = connect_to_server(&conn_server_handle, "127.0.0.1");
+        
     if (check_conn.iserror)
     {
         printf("connection unsuccessful\n");
     }
     else
     {
-        printf("connection successful\n");
+        printf("connection successful to main server\n");
 
-        result_check check_login = login(username);
-        if (check_login.iserror)
+        printf("\n\n=======[LOGIN]======\n\n");
+
+        while(true)
         {
-            print_error(check_login.error_mess);
-            exit(EXIT_FAILURE);
+            printf("insert the username: ");
+            scanf("%s", account.username);
+
+            result_check check_login = handle_login(account.username);
+
+            if (check_login.iserror)
+                print_error(check_login.error_mess);
+            else
+                break;
         }
-
+        printf("\n\nLOGIN SUCCESSFUL!\n\n");
         
-
         readhandle readhandle_inst;
         readhandle_inst.conn = conn_server_handle;
         int succ_read = pthread_create(&tid_read, NULL, &read_conndata, (void*)&readhandle_inst);

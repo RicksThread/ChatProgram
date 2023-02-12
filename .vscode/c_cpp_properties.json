@@ -8,13 +8,15 @@
                 "/usr/include",
                 "/usr/include/x86_64-linux-gnu",
                 "${workspaceFolder}/externals/uthash_lib/src",
-                "${workspaceFolder}/externals/utils"
+                "${workspaceFolder}/externals/utils",
+                "${workspaceFolder}/externals/stdrely"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "linux-gcc-x64"
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

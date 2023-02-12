@@ -96,14 +96,25 @@ CMakeFiles/RLY_client.dir/src/main.c.o: ../src/main.c \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
+  /usr/include/errno.h \
+  /usr/include/x86_64-linux-gnu/bits/errno.h \
+  /usr/include/linux/errno.h \
+  /usr/include/x86_64-linux-gnu/asm/errno.h \
+  /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/errno-base.h \
   /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.h \
   /usr/include/stdlib.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/alloca.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
-  /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.h
+  /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.h \
+  /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.h \
+  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h \
+  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h
 
+
+/home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h:
 
 /usr/include/alloca.h:
 
@@ -112,6 +123,16 @@ CMakeFiles/RLY_client.dir/src/main.c.o: ../src/main.c \
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/stdlib.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/include/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
@@ -140,6 +161,8 @@ CMakeFiles/RLY_client.dir/src/main.c.o: ../src/main.c \
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
@@ -259,6 +282,8 @@ CMakeFiles/RLY_client.dir/src/main.c.o: ../src/main.c \
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
+/home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
@@ -298,6 +323,8 @@ CMakeFiles/RLY_client.dir/src/main.c.o: ../src/main.c \
 /usr/include/x86_64-linux-gnu/bits/sockaddr.h:
 
 /usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
+
+/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
