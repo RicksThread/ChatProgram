@@ -142,6 +142,30 @@ RLY_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_server.dir/build.make CMakeFiles/RLY_server.dir/build
 .PHONY : RLY_server/fast
 
+home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o: home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.i: home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.s: home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.s
+
 home/rick/Desktop/repos/RelyConn/externals/utils/errormess.o: home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/errormess.o
 
@@ -224,6 +248,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... RLY_server"
 	@echo "... utils"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.s"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/errormess.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/errormess.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/errormess.s"

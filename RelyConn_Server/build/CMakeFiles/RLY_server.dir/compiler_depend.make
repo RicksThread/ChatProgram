@@ -112,8 +112,12 @@ CMakeFiles/RLY_server.dir/src/main.c.o: ../src/main.c \
   /usr/include/stdint.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.h \
-  /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.h
+  /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.h \
+  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h \
+  /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h
 
+
+/home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
@@ -282,6 +286,8 @@ CMakeFiles/RLY_server.dir/src/main.c.o: ../src/main.c \
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h:
 

@@ -114,4 +114,6 @@ CMakeFiles/RLY_server.dir/src/main.c.o
  /usr/include/x86_64-linux-gnu/bits/wchar.h
  /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.h
  /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.h
+ /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_accounting.h
+ /home/rick/Desktop/repos/RelyConn/externals/stdrely/stdrely_cmd.h
 
