@@ -143,6 +143,19 @@ stdrely/fast:
 .PHONY : stdrely/fast
 
 #=============================================================================
+# Target rules for targets named aes
+
+# Build rule for target.
+aes: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 aes
+.PHONY : aes
+
+# fast build rule for target.
+aes/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/build
+.PHONY : aes/fast
+
+#=============================================================================
 # Target rules for targets named RLY_server
 
 # Build rule for target.
@@ -178,6 +191,54 @@ home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.s: home/rick/D
 home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.o: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.i: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.s: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.o: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.i: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.s: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s
 
 home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o: home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o
@@ -284,11 +345,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... RLY_server"
+	@echo "... aes"
 	@echo "... stdrely"
 	@echo "... utils"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.s"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.s"

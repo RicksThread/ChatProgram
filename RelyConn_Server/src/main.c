@@ -15,7 +15,7 @@
 #include "stdrely_cmd.h"
 #include "stdrely_message.h"
 #include "rly_decryption.h"
-
+#include <gmp.h>
 #define PORT 10003
 #define MAX_HOSTS 10
 

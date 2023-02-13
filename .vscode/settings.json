@@ -6,6 +6,7 @@
         "socket.h": "c",
         "errno.h": "c",
         "error_handling.h": "c",
-        "stdrely_accounting.h": "c"
+        "stdrely_accounting.h": "c",
+        "math_utils.h": "c"
     }
 }
