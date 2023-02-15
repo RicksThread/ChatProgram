@@ -7,6 +7,10 @@
         "errno.h": "c",
         "error_handling.h": "c",
         "stdrely_accounting.h": "c",
-        "math_utils.h": "c"
+        "math_utils.h": "c",
+        "stdlib.h": "c",
+        "time.h": "c",
+        "gmp.h": "c",
+        "rly_decryption.h": "c"
     }
 }

@@ -226,6 +226,7 @@ int main(int argc, char const* argv[])
             printf("insert the username: ");
             scanf("%s", account.username);
 
+            encryption_system_inizialization();
             result_check check_login = handle_login(account.username);
 
             if (check_login.iserror)

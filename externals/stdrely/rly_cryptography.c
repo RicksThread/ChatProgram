@@ -1,6 +1,6 @@
 #include "rly_cryptography.h"
 
-void generate_keys(mpz_ptr key_public, mpz_ptr key_private, mpz_ptr n, mp_bitcnt_t key_bitlength)
+void rsa_init_keys(mpz_ptr key_public, mpz_ptr key_private, mpz_ptr n, mp_bitcnt_t key_bitlength)
 {
     mpz_init2(key_public, key_bitlength);
     mpz_init2(key_private, key_bitlength);

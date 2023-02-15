@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
-#include <unistd.h>
 #include <pthread.h>
 #include <stdbool.h>
 #include <sys/time.h> 
@@ -11,142 +10,35 @@
 #include "uthash.h"
 #include "errormess.h"
 #include "strformatting.h"
-#include "stdrely_accounting.h"
 #include "stdrely_cmd.h"
-#include "stdrely_message.h"
-#include "rly_decryption.h"
+#include "user_handler.h"
+#include "rly_cryptography.h"
+#include "des_encryption_data.h"
 #include <gmp.h>
+
 #define PORT 10003
-#define MAX_HOSTS 10
-
-#define BUFFER_LENGTH 1024
-
-#define FAILED_OP -1
-#define SUCCESS_OP 0
 
 #ifndef NULL
 #define NULL 0
 #endif
 
+#define RSA_KEY_LENGTH 64
+
 struct sockaddr_in;
+
+
 typedef struct
 {
     int sock;
     struct sockaddr_in address;
 }socket_local;
 
-typedef struct
-{
-    account_data account;
-
-
-    int sock;
-    struct sockaddr_in address;
-    char buffer[BUFFER_LENGTH];
-    UT_hash_handle hh;
-}client_handle;
-
 
 socket_local server_listener;
-client_handle* clients[MAX_HOSTS];
-
-client_handle* clients_table = NULL;
 pthread_t tid_listener, tid_reader, tid_writer;
 
 bool is_terminated = false;
 
-int clients_connected = 0;
-
-pthread_mutex_t lock_disconnect;
-
-bool is_client_active(client_handle* client)
-{
-    //printf("check if the client is active: %d\n", !(client == NULL));
-    if (client == NULL)
-        return false;
-
-    return true;
-}
-
-void close_client(client_handle* client)
-{
-    if (is_client_active(client))
-    {
-        printf("Close connection: %s\n", client->account.username);
-        //dispose the client: sockets, memory allocation and pointer value
-        
-        close(client->sock);
-        free(client);
-    }
-}
-
-
-void disconnect_client_index(int index)
-{
-    pthread_mutex_lock(&lock_disconnect);
-    if (is_client_active(clients[index]) )
-    {
-
-        //dispose the client: sockets, memory allocation and pointer value
-        client_handle* clienthandle_tmp = clients[index];
-        printf("\ndisconnected: %s, index %d\n\n", clienthandle_tmp->account.username, index);
-
-        clients[index] = NULL;
-        HASH_DEL(clients_table, clienthandle_tmp);
-        close_client(clienthandle_tmp);
-
-        clients_connected--;
-    }
-    pthread_mutex_unlock(&lock_disconnect);
-
-}
-
-void disconnect_client(client_handle* client)
-{
-    printf("disconneting client: %s\n", client->account.username);
-    for(int i = 0; i < MAX_HOSTS; i++)
-    {
-        printf("iterating clients: %d; is same = %d\n", i, clients[i] == client);
-        if (clients[i] == client)
-        {
-            disconnect_client_index(i);
-            break;
-        }
-    }
-}
-
-
-/*
-disconnects all clients and it's thread safe
-*/
-void disconnect_clients()
-{
-    for(int i = 0; i < MAX_HOSTS; i++)
-    {
-        if(is_client_active(clients[i]))
-        {
-            disconnect_client_index(i);
-        }
-    }
-}
-
-void add_user(client_handle* handle)
-{
-    HASH_ADD_STR(clients_table, account.username, handle);
-    //add new socket to array of sockets 
-    for (int i = 0; i < MAX_HOSTS; i++)  
-    {  
-        //if position is empty 
-        if(!is_client_active(clients[i]))  
-        {  
-            printf("Client added to list of sockets as %d\n" , i);  
-
-            clients[i] = handle;
-            clients_connected++;
-            break;  
-        }  
-    }  
-}
 
 void* read_clients(void* args)
 {
@@ -335,10 +227,8 @@ void init_server()
     server_listener.sock = sock;
 }
 
-
-void* handle_client_login(void* args)
+void handle_login(client_handle* client)
 {
-    client_handle* client = (client_handle*)args;
     client_handle* client_cmp;
     bool username_invalid = false;
 
@@ -420,6 +310,49 @@ void* handle_client_login(void* args)
     
     add_user(client);
     pthread_exit(NULL);
+
+}
+
+void init_encryption_client(client_handle* client)
+{
+    //rsa from server
+    //pubic key to client
+    //client creates the key for the SEA-DES-CBC
+    mpz_t key_public, key_private, n;
+    rsa_init_keys(key_public, key_private, n, RSA_KEY_LENGTH*8);
+
+    char public_key_buffer[RSA_KEY_LENGTH];
+
+    mpz_to_buffer(public_key_buffer, key_public);
+
+    send(client->sock, public_key_buffer, RSA_KEY_LENGTH, 0);
+
+    des_encryption_data* des_data;
+
+    char encrypted_key_buffer[RSA_KEY_LENGTH];
+
+    //receive the des key from the client
+    recv(client->sock, encrypted_key_buffer, RSA_KEY_LENGTH, 0);
+    
+    mpz_t encrypted_des_key_mpz, decrypted_des_key_mpz;
+    mpz_init(encrypted_des_key_mpz);
+    mpz_init(decrypted_des_key_mpz);
+
+    //convert to mpz the buffer and then decrypt it; finally put the data into a buffer
+    buffer_to_mpz(encrypted_des_key_mpz, encrypted_key_buffer, RSA_KEY_LENGTH);
+
+
+    rsa_decrypt(decrypted_des_key_mpz, encrypted_des_key_mpz, key_private, n);
+    mpz_to_buffer(des_data->key, decrypted_des_key_mpz);
+}
+
+void* init_client_conn(void* args)
+{
+    client_handle* client = (client_handle*)args;
+
+
+    init_encryption_client(client);
+    handle_login(client);
 }
 
 void* listen_connections(void* args)
@@ -447,7 +380,7 @@ void* listen_connections(void* args)
         else
         {
             pthread_t tid_login;
-            pthread_create(&tid_login, NULL, &handle_client_login, newConnection);
+            pthread_create(&tid_login, NULL, &init_client_conn, newConnection);
         }
     }
 }
