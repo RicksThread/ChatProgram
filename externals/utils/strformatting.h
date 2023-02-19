@@ -22,6 +22,8 @@ splits a string where the character is the same as the delimiter; in doing so it
 */
 str_array split_str(char* str, const char* delimiter);
 
+u_int8_t is_str_array_empty(str_array* str_arr);
+
 /*
 free a str array
 */

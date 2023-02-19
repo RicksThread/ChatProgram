@@ -64,7 +64,6 @@ CMAKE_BINARY_DIR = /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build
 
 # The main recursive "all" target.
 all: CMakeFiles/utils.dir/all
-all: CMakeFiles/stdrely.dir/all
 all: CMakeFiles/aes.dir/all
 all: CMakeFiles/RLY_server.dir/all
 .PHONY : all
@@ -75,7 +74,6 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/utils.dir/clean
-clean: CMakeFiles/stdrely.dir/clean
 clean: CMakeFiles/aes.dir/clean
 clean: CMakeFiles/RLY_server.dir/clean
 .PHONY : clean
@@ -84,15 +82,15 @@ clean: CMakeFiles/RLY_server.dir/clean
 # Target rules for target CMakeFiles/utils.dir
 
 # All Build rule for target.
-CMakeFiles/utils.dir/all:
+CMakeFiles/utils.dir/all: CMakeFiles/aes.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=8,9,10,11 "Built target utils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=7,8,9,10,11,12,13,14,15 "Built target utils"
 .PHONY : CMakeFiles/utils.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/utils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 0
 .PHONY : CMakeFiles/utils.dir/rule
@@ -107,39 +105,13 @@ CMakeFiles/utils.dir/clean:
 .PHONY : CMakeFiles/utils.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/stdrely.dir
-
-# All Build rule for target.
-CMakeFiles/stdrely.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=6,7 "Built target stdrely"
-.PHONY : CMakeFiles/stdrely.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/stdrely.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/stdrely.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 0
-.PHONY : CMakeFiles/stdrely.dir/rule
-
-# Convenience name for target.
-stdrely: CMakeFiles/stdrely.dir/rule
-.PHONY : stdrely
-
-# clean rule for target.
-CMakeFiles/stdrely.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/stdrely.dir/build.make CMakeFiles/stdrely.dir/clean
-.PHONY : CMakeFiles/stdrely.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/aes.dir
 
 # All Build rule for target.
 CMakeFiles/aes.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=3,4,5 "Built target aes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=4,5,6 "Built target aes"
 .PHONY : CMakeFiles/aes.dir/all
 
 # Build rule for subdir invocation for target.
@@ -163,15 +135,15 @@ CMakeFiles/aes.dir/clean:
 
 # All Build rule for target.
 CMakeFiles/RLY_server.dir/all: CMakeFiles/utils.dir/all
-CMakeFiles/RLY_server.dir/all: CMakeFiles/stdrely.dir/all
+CMakeFiles/RLY_server.dir/all: CMakeFiles/aes.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_server.dir/build.make CMakeFiles/RLY_server.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_server.dir/build.make CMakeFiles/RLY_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=1,2 "Built target RLY_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=1,2,3 "Built target RLY_server"
 .PHONY : CMakeFiles/RLY_server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RLY_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RLY_server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles 0
 .PHONY : CMakeFiles/RLY_server.dir/rule

@@ -69,10 +69,38 @@ include CMakeFiles/utils.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/utils.dir/flags.make
 
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o: CMakeFiles/utils.dir/flags.make
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o: CMakeFiles/utils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c > CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o: CMakeFiles/utils.dir/flags.make
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o: CMakeFiles/utils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c > CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s
+
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o: CMakeFiles/utils.dir/flags.make
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o: CMakeFiles/utils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c
 
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.i: cmake_force
@@ -86,7 +114,7 @@ CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_hand
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o: CMakeFiles/utils.dir/flags.make
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o: CMakeFiles/utils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c
 
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.i: cmake_force
@@ -97,10 +125,52 @@ CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.s
 
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o: CMakeFiles/utils.dir/flags.make
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o: CMakeFiles/utils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c > CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o: CMakeFiles/utils.dir/flags.make
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o: CMakeFiles/utils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c > CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o: CMakeFiles/utils.dir/flags.make
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o: CMakeFiles/utils.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c > CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i
+
+CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s
+
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o: CMakeFiles/utils.dir/flags.make
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o: /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o: CMakeFiles/utils.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o -MF CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o.d -o CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o -c /home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c
 
 CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.i: cmake_force
@@ -113,19 +183,29 @@ CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatt
 
 # Object files for target utils
 utils_OBJECTS = \
+"CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o" \
+"CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o" \
 "CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o" \
 "CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o" \
+"CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o" \
+"CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o" \
+"CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o" \
 "CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o"
 
 # External object files for target utils
 utils_EXTERNAL_OBJECTS =
 
+libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o
+libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o
 libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
 libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.o
+libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o
+libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o
+libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o
 libutils.a: CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o
 libutils.a: CMakeFiles/utils.dir/build.make
 libutils.a: CMakeFiles/utils.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C static library libutils.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C static library libutils.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/utils.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/utils.dir/link.txt --verbose=$(VERBOSE)
 

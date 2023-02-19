@@ -1,1 +1,1 @@
-/usr/bin/cc -Wall CMakeFiles/RLY_client.dir/src/main.c.o -o RLY_client  libutils.a 
+/usr/bin/cc -Wall CMakeFiles/RLY_client.dir/src/formatter_message.c.o CMakeFiles/RLY_client.dir/src/main.c.o -o RLY_client  -lgmp libutils.a libaes.a 

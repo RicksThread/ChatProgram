@@ -1,0 +1,2 @@
+/usr/bin/ar qc libaes.a CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+/usr/bin/ranlib libaes.a

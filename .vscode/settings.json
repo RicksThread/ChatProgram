@@ -11,6 +11,16 @@
         "stdlib.h": "c",
         "time.h": "c",
         "gmp.h": "c",
-        "rly_decryption.h": "c"
+        "rly_decryption.h": "c",
+        "stdrely_cmd.h": "c",
+        "des_encryption_data.h": "c",
+        "stdrely_message.h": "c",
+        "gmp_utils.h": "c",
+        "des_encryption.h": "c",
+        "aes_encryption.h": "c",
+        "rly_cryptography.h": "c",
+        "stdbool.h": "c",
+        "aes.h": "c",
+        "buffer_utils.h": "c"
     }
 }

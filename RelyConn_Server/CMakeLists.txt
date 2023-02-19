@@ -15,17 +15,15 @@ string(APPEND CMAKE_C_FLAGS "-Wall")
 
 #find all the src files for the utils
 file(GLOB_RECURSE UTILS_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/utils/*.c)
-file(GLOB_RECURSE STDRELY_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/stdrely/*.c)
 file(GLOB_RECURSE AES_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/tiny-AES-c-master/*.c)
-#find_package(GMP REQUIRED)
 
 #create the library archive (.a) through the source files
 add_library(utils STATIC ${UTILS_SRCS})
-add_library(stdrely STATIC ${STDRELY_SRCS})
 add_library(aes STATIC ${AES_SRCS})
 
-target_include_directories(utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/utils)
-target_include_directories(stdrely PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/stdrely)
+target_link_libraries(utils PUBLIC aes)
+
+target_include_directories(utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/tiny-AES-c-master/)
 
 file(GLOB_RECURSE SRC_FILES src/*.c)
 
@@ -34,9 +32,11 @@ add_executable(${PROGRAMFILE_NAME} ${SRC_FILES})
 #link the library to the program
 target_link_libraries(${PROGRAMFILE_NAME} PUBLIC gmp)
 target_link_libraries(${PROGRAMFILE_NAME} PUBLIC utils)
-target_link_libraries(${PROGRAMFILE_NAME} PUBLIC stdrely)
+#target_link_libraries(${PROGRAMFILE_NAME} PUBLIC stdrely)
 #include the referenced directories
 target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 #include external headers
+target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/stdrely)
 target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/uthash_lib/src)
+target_include_directories(${PROGRAMFILE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LIBS_NAME}/utils)

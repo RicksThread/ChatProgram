@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/RLY_client.dir/src/formatter_message.c.o"
+  "CMakeFiles/RLY_client.dir/src/formatter_message.c.o.d"
   "CMakeFiles/RLY_client.dir/src/main.c.o"
   "CMakeFiles/RLY_client.dir/src/main.c.o.d"
   "RLY_client"

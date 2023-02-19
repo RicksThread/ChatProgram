@@ -13,9 +13,15 @@
 #include "stdrely_cmd.h"
 #include "stdrely_accounting.h"
 #include "formatter_message.h"
+#include "rly_cryptography.h"
+#include "aes_encryption.h"
+#include "aes.h"
+#include "buffer_utils.h"
 
-#define PORT 10003
+#define PORT 10004
 #define MESSAGE_MAXLENGTH 128
+
+#define RSA_KEY_LENGTH 32
 
 typedef struct
 {
@@ -34,11 +40,15 @@ typedef struct
     connto_server_handle conn;
 }readhandle;
 
+uint8_t key_des[AES_KEY_LENGTH];
+uint8_t iv_relyConn[16]  = { 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7, 0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff };
+
 connto_server_handle conn_server_handle;
 char buffer[1024] = { 0 };
 
 account_data account;
 bool is_terminated = false;
+aes_encryption_data aes_data;
 
 #define REFRESH_LISTENER_RATE 300000
 
@@ -46,6 +56,20 @@ bool is_terminated = false;
 // {name_src}|{message}
 // formatted cmd sent
 // cmd|{command}
+
+void clear_buffer()
+{
+    memset(buffer, 0, BUFFER_LENGTH);
+}
+
+void print_buffer(char* buffer, size_t size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        printf("%c", buffer[i]);
+    }
+}
+
 
 void* read_conndata(void* args)
 {
@@ -74,13 +98,13 @@ void* read_conndata(void* args)
             print_errorno("select pool for reading filedescriptors;");
         }
 
-        int valread = recv(handle.sock, buffer, sizeof(buffer), 0);
+        memset(buffer, 0, BUFFER_LENGTH);
+        int valread = recv(handle.sock, buffer, BUFFER_LENGTH, 0);
+        aes_cbc_decrypt(&aes_data, buffer, BUFFER_LENGTH);
 
         if (valread > 0)
         {
-            format_usermessage(buffer);
             printf("\nmessage received: %s\n\n", buffer);
-            memset(buffer, 0, sizeof(buffer));
         }
         else
         {
@@ -97,10 +121,10 @@ void* write_conndata(void* args)
     printf("CHAT CREATED!\n");
     writehandle write_handle_inst = *(writehandle*)args;
     connto_server_handle handle = write_handle_inst.conn;
-    char message[MESSAGE_MAXLENGTH];
+    char message[BUFFER_LENGTH];
     while(1)
     {
-        fgets(message, MESSAGE_MAXLENGTH, stdin);
+        fgets(message, BUFFER_LENGTH, stdin);
 
         //remove the /n from the message to compare it to other strings without to much hassle
         format_linestr(message);
@@ -112,8 +136,9 @@ void* write_conndata(void* args)
         }
         else
         {
-            send(handle.sock, message, strlen(message), 0);
-            memset(message, 0, strlen(message));
+            aes_cbc_encrypt(&aes_data, message, BUFFER_LENGTH);
+            send(handle.sock, message, BUFFER_LENGTH, 0);
+            memset(message, 0, BUFFER_LENGTH);
         }
     }
     pthread_exit(0);
@@ -163,6 +188,62 @@ void disconnect_from_server(connto_server_handle* handle)
     close(handle->sock);
 }
 
+void encryption_system_inizialization(connto_server_handle* handle)
+{
+    printf("Initialize encryption\n");
+    mpz_t key_public_rsa, n;
+    mpz_init2(key_public_rsa, RSA_KEY_LENGTH * 8);
+    mpz_init2(n, RSA_KEY_LENGTH * 8);
+
+    //receive the public aes_key_mpz
+    clear_buffer();
+    recv(handle->sock, buffer, BUFFER_LENGTH, 0);
+
+    //get the byte size of the public aes_key_mpz for transforming it in mpz format
+    buffer_header key_public_header = extract_buffer_header(buffer, BUFFER_LENGTH);
+    buffer_to_mpz(key_public_rsa, buffer, key_public_header.message_length);
+    
+
+    //receive the n number
+    clear_buffer();
+    recv(handle->sock, buffer, BUFFER_LENGTH, 0);
+
+    buffer_header n_header = extract_buffer_header(buffer, BUFFER_LENGTH);
+    buffer_to_mpz(n, buffer, n_header.message_length);
+
+
+    //create the random aes_key_mpz for des
+    mpz_t aes_key_mpz;
+    mpz_init(aes_key_mpz);
+    bn_get_random(aes_key_mpz, AES_KEY_LENGTH * 8);
+
+    //convert to a buffer and store it
+    mpz_to_buffer(key_des, aes_key_mpz);
+
+    //encrypt it and put the encrypted key into a buffer to be sent
+    mpz_t encrypted_key;
+    mpz_init(encrypted_key);
+    rsa_encrypt(encrypted_key, aes_key_mpz, key_public_rsa, n);
+
+
+
+    clear_buffer();
+    mpz_to_buffer(buffer, encrypted_key);
+    size_t aes_key_encrypted_bytesz = mpz_sizeinbase(encrypted_key, 256);
+    set_buffer_header(buffer, BUFFER_LENGTH, (buffer_header){.message_length = aes_key_encrypted_bytesz});
+    
+    send(handle->sock, buffer, BUFFER_LENGTH, 0);
+
+    aes_init(&aes_data, key_des, iv_relyConn);
+    
+
+
+    mpz_clear(key_public_rsa);
+    mpz_clear(n);
+    mpz_clear(aes_key_mpz);
+    mpz_clear(encrypted_key);
+}
+
 result_check handle_login(char* username)
 {
     result_check check;
@@ -174,7 +255,12 @@ result_check handle_login(char* username)
 
     char error[1];
 
-    send(conn_server_handle.sock, account.username, strlen(account.username), 0);
+    char username_encrypted[32];
+    memcpy(username_encrypted, username, USERNAME_MAXLENGTH);
+    aes_cbc_encrypt(&aes_data, username_encrypted, 32);
+    
+    send(conn_server_handle.sock, username_encrypted, 32, 0);
+
     recv(conn_server_handle.sock, error, 1, 0);
 
     if ((int)error[0] != SUCCESSFUL_LOGIN)
@@ -221,12 +307,15 @@ int main(int argc, char const* argv[])
 
         printf("\n\n=======[LOGIN]======\n\n");
 
+
+        encryption_system_inizialization(&conn_server_handle);
+        
+
         while(true)
         {
             printf("insert the username: ");
-            scanf("%s", account.username);
-
-            encryption_system_inizialization();
+            fgets(account.username, USERNAME_MAXLENGTH, stdin);
+            format_linestr(account.username);
             result_check check_login = handle_login(account.username);
 
             if (check_login.iserror)

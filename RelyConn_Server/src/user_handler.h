@@ -1,3 +1,6 @@
+#ifndef USERS_HANDLER_H
+#define USERS_HANDLER_H
+
 #include <netinet/in.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -8,28 +11,27 @@
 #include "stdrely_accounting.h"
 #include "uthash.h"
 #include "stdrely_message.h"
-#include "des_encryption_data.h"
+#include "aes_encryption.h"
 
 #define MAX_HOSTS 10
 
 typedef struct
 {
     account_data account;
-    des_encryption_data encryption_data;
+    aes_encryption_data encryption_data;
 
     int sock;
     struct sockaddr_in address;
-    char buffer[BUFFER_LENGTH];
     UT_hash_handle hh;
 }client_handle;
 
-int clients_connected = 0;
+extern int clients_connected;
 
-pthread_mutex_t lock_disconnect;
+extern pthread_mutex_t lock_disconnect;
 
-client_handle* clients[MAX_HOSTS];
+extern client_handle* clients[MAX_HOSTS];
 
-client_handle* clients_table = NULL;
+extern client_handle* clients_table;
 
 bool is_client_active(client_handle* client);
 
@@ -46,3 +48,4 @@ disconnects all clients and it's thread safe
 void disconnect_clients();
 
 void add_user(client_handle* handle);
+#endif

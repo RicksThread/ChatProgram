@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build
 
 # The main recursive "all" target.
 all: CMakeFiles/utils.dir/all
+all: CMakeFiles/aes.dir/all
 all: CMakeFiles/RLY_client.dir/all
 .PHONY : all
 
@@ -73,6 +74,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/utils.dir/clean
+clean: CMakeFiles/aes.dir/clean
 clean: CMakeFiles/RLY_client.dir/clean
 .PHONY : clean
 
@@ -80,15 +82,15 @@ clean: CMakeFiles/RLY_client.dir/clean
 # Target rules for target CMakeFiles/utils.dir
 
 # All Build rule for target.
-CMakeFiles/utils.dir/all:
+CMakeFiles/utils.dir/all: CMakeFiles/aes.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=3,4,5,6 "Built target utils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=7,8,9,10,11,12,13,14,15 "Built target utils"
 .PHONY : CMakeFiles/utils.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/utils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 0
 .PHONY : CMakeFiles/utils.dir/rule
@@ -103,18 +105,45 @@ CMakeFiles/utils.dir/clean:
 .PHONY : CMakeFiles/utils.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/aes.dir
+
+# All Build rule for target.
+CMakeFiles/aes.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=4,5,6 "Built target aes"
+.PHONY : CMakeFiles/aes.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/aes.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/aes.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 0
+.PHONY : CMakeFiles/aes.dir/rule
+
+# Convenience name for target.
+aes: CMakeFiles/aes.dir/rule
+.PHONY : aes
+
+# clean rule for target.
+CMakeFiles/aes.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/clean
+.PHONY : CMakeFiles/aes.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/RLY_client.dir
 
 # All Build rule for target.
 CMakeFiles/RLY_client.dir/all: CMakeFiles/utils.dir/all
+CMakeFiles/RLY_client.dir/all: CMakeFiles/aes.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_client.dir/build.make CMakeFiles/RLY_client.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_client.dir/build.make CMakeFiles/RLY_client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=1,2 "Built target RLY_client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles --progress-num=1,2,3 "Built target RLY_client"
 .PHONY : CMakeFiles/RLY_client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RLY_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RLY_client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rick/Desktop/repos/RelyConn/RelyConn_Client/build/CMakeFiles 0
 .PHONY : CMakeFiles/RLY_client.dir/rule

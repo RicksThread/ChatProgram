@@ -130,6 +130,19 @@ utils/fast:
 .PHONY : utils/fast
 
 #=============================================================================
+# Target rules for targets named aes
+
+# Build rule for target.
+aes: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 aes
+.PHONY : aes
+
+# fast build rule for target.
+aes/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/build
+.PHONY : aes/fast
+
+#=============================================================================
 # Target rules for targets named RLY_client
 
 # Build rule for target.
@@ -141,6 +154,102 @@ RLY_client: cmake_check_build_system
 RLY_client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_client.dir/build.make CMakeFiles/RLY_client.dir/build
 .PHONY : RLY_client/fast
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.o: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.i: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.s: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.o: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.i: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.s: home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/aes.dir/build.make CMakeFiles/aes.dir/home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.o: home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.i: home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.s: home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.o: home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.i: home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.s: home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.c.s
 
 home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o: home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.c.o
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o
@@ -190,6 +299,78 @@ home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.s
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/errormess.c.s
 
+home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.o: home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.i: home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.s: home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.o: home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.i: home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.s: home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.c.s
+
+home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.o: home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.o
+
+# target to build an object file
+home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.o
+
+home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.i: home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.i
+
+# target to preprocess a source file
+home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.i
+
+home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.s: home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.s
+
+# target to generate assembly for a file
+home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s
+.PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.c.s
+
 home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.o: home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.o
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.o
 
@@ -213,6 +394,30 @@ home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.s: home/rick/Desk
 home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.s
 .PHONY : home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.c.s
+
+src/formatter_message.o: src/formatter_message.c.o
+.PHONY : src/formatter_message.o
+
+# target to build an object file
+src/formatter_message.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_client.dir/build.make CMakeFiles/RLY_client.dir/src/formatter_message.c.o
+.PHONY : src/formatter_message.c.o
+
+src/formatter_message.i: src/formatter_message.c.i
+.PHONY : src/formatter_message.i
+
+# target to preprocess a source file
+src/formatter_message.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_client.dir/build.make CMakeFiles/RLY_client.dir/src/formatter_message.c.i
+.PHONY : src/formatter_message.c.i
+
+src/formatter_message.s: src/formatter_message.c.s
+.PHONY : src/formatter_message.s
+
+# target to generate assembly for a file
+src/formatter_message.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RLY_client.dir/build.make CMakeFiles/RLY_client.dir/src/formatter_message.c.s
+.PHONY : src/formatter_message.c.s
 
 src/main.o: src/main.c.o
 .PHONY : src/main.o
@@ -247,16 +452,41 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... RLY_client"
+	@echo "... aes"
 	@echo "... utils"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/aes.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/tiny-AES-c-master/test.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/aes_encryption.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/buffer_utils.s"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/error_handling.s"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/errormess.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/errormess.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/errormess.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/gmp_utils.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/math_utils.s"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.o"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.i"
+	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/rly_cryptography.s"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.o"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.i"
 	@echo "... home/rick/Desktop/repos/RelyConn/externals/utils/strformatting.s"
+	@echo "... src/formatter_message.o"
+	@echo "... src/formatter_message.i"
+	@echo "... src/formatter_message.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

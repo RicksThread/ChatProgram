@@ -13,16 +13,14 @@
 #include "stdrely_cmd.h"
 #include "user_handler.h"
 #include "rly_cryptography.h"
-#include "des_encryption_data.h"
+#include "aes_encryption.h"
+#include "aes.h"
 #include <gmp.h>
+#include "buffer_utils.h"
 
-#define PORT 10003
+#define PORT 10004
 
-#ifndef NULL
-#define NULL 0
-#endif
-
-#define RSA_KEY_LENGTH 64
+#define RSA_KEY_LENGTH 32
 
 struct sockaddr_in;
 
@@ -33,17 +31,26 @@ typedef struct
     struct sockaddr_in address;
 }socket_local;
 
-
+char buffer[BUFFER_LENGTH];
 socket_local server_listener;
 pthread_t tid_listener, tid_reader, tid_writer;
 
 bool is_terminated = false;
 
+uint8_t iv_relyConn[16]  = { 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7, 0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff };
+
+void print_buffer(char* buffer, size_t size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        printf("%c", buffer[i]);
+    }
+}
 
 void* read_clients(void* args)
 {
+
     int i = 0;
-    int buffer_size = BUFFER_LENGTH;
 
     int max_fd = -1;
 
@@ -83,7 +90,6 @@ void* read_clients(void* args)
         {
             print_errorno("select pool for reading filedescriptors;");
         }
-
         //loop through all the active users
         for(i = 0; i < MAX_HOSTS; i++)
         {
@@ -93,7 +99,10 @@ void* read_clients(void* args)
                 //retrieves the message &
                 //checks if the data format is correct
 
-                int valread = read(clients[i]->sock, clients[i]->buffer, buffer_size);
+                memset(buffer, 0, BUFFER_LENGTH);
+                int valread = recv(clients[i]->sock, buffer, BUFFER_LENGTH, 0);
+                
+                
                 if (valread <= 0)
                 {
                     disconnect_client_index(i);
@@ -101,15 +110,17 @@ void* read_clients(void* args)
                 //message received is not of disconnect
                 else
                 {
-                    //check the format of the message 
-                    clients[i]->buffer[valread] = '\0';
-
-                    str_array message_formatted = split_str(clients[i]->buffer, "|");
-
+                    
+                    //check the format of the message
+                    aes_cbc_decrypt(&clients[i]->encryption_data, buffer, BUFFER_LENGTH);
+                    //buffer[valread] = '\0';
+                    str_array message_formatted = split_str(buffer, "|");
 
                     if (message_formatted.length < 2)
                     {
                         printf("The message received from: %s is not formatted correctly! %d should be 2\n", clients[i]->account.username, message_formatted.length);
+                        
+                        free_str_array(&message_formatted);
                         continue;
                     }
 
@@ -119,21 +130,23 @@ void* read_clients(void* args)
 
                     HASH_FIND_STR(clients_table, dest, client_dest);
 
+                    printf("The user %s has sent the message: %s\n", dest, message_payload);
                     if (client_dest != NULL)
                     {
-                        char message_tosend[MESSAGE_USER_LENGTH];
+                        char message_tosend[BUFFER_LENGTH];
                         sprintf(message_tosend, "%s|%s", clients[i]->account.username, message_payload);
 
-                        send(client_dest->sock, message_tosend, strlen(message_tosend), 0);
-                        memset(clients[i]->buffer, 0, strlen(clients[i]->buffer));
-                        free_str_array(&message_formatted);   
+                        aes_cbc_encrypt(&client_dest->encryption_data, message_tosend, BUFFER_LENGTH);
+                        send(client_dest->sock, message_tosend, BUFFER_LENGTH, 0);
+
+
                     }
                     else
                     {
                         printf("There is no such user %s on the server!\n", dest);
-                        free_str_array(&message_formatted);
-                        continue;
                     }
+                    free_str_array(&message_formatted);
+                    
                 }
             }
         }
@@ -157,6 +170,12 @@ void* write_clients(void* args)
         if(strlen(command) > strlen(CMD_KICK) && strncmp(command, CMD_KICK, strlen(CMD_KICK)) == 0)
         {
             str_array cmd_segments = split_str(command, ":");
+            if (is_str_array_empty(&cmd_segments))
+            {
+                free_str_array(&cmd_segments);
+                continue;
+            }
+
             char* name_target = cmd_segments.strs[1];
 
             client_handle* target;
@@ -166,12 +185,13 @@ void* write_clients(void* args)
             if (target != NULL)
             {
                 char* reason_kick = cmd_segments.strs[2];
-                char message_kick[150];
+                char message_kick[BUFFER_LENGTH];
                 sprintf(message_kick, "%s%s", PREFIX_KICK, reason_kick);
+
                 printf("\nkicking user: %s, reason: %s\n", target->account.username, reason_kick);
+                aes_cbc_encrypt(&target->encryption_data, message_kick, BUFFER_LENGTH);
                 send(target->sock, message_kick, strlen(message_kick), 0);
                 disconnect_client(target);
-
             }
 
             free_str_array(&cmd_segments);
@@ -181,7 +201,7 @@ void* write_clients(void* args)
             is_terminated = true;
             pthread_exit(NULL);
         } 
-        memset(command, 0, 127);
+        memset(command, 0, 128);
     }
 
     pthread_exit(NULL);
@@ -236,14 +256,16 @@ void handle_login(client_handle* client)
     int username_length;
 
     char error[1];
-    while(true)
+    bool login = true;
+    while(login)
     {
         //resetting data for next check
         username_invalid = false;
         error[0] = SUCCESSFUL_LOGIN;
 
-
-        int login_length = recv(client->sock, client->buffer, BUFFER_LENGTH, 0);
+        memset(buffer, 0, BUFFER_LENGTH);
+        int login_length = recv(client->sock, buffer, BUFFER_LENGTH, 0);
+        aes_cbc_decrypt(&client->encryption_data, buffer, BUFFER_LENGTH);
 
         if (login_length <= 0)
         {
@@ -252,8 +274,15 @@ void handle_login(client_handle* client)
         }
 
         printf("received data for login\n **processing**\n");
-        str_array login_data = split_str(client->buffer, ";");
-
+        str_array login_data = split_str(buffer, ";");
+        
+        if (is_str_array_empty(&login_data))
+        {
+            free_str_array(&login_data);
+            error[0] = (char)ERROR_ACC_USERNAME_SHORT;
+            send(client->sock, error, 1, 0);
+            continue;
+        }
         username = login_data.strs[ACCOUNT_USERNAME_INDEX];
         username_length = strlen(username);
 
@@ -291,7 +320,7 @@ void handle_login(client_handle* client)
         if (username_invalid)
         {
             send(client->sock, error, 1, 0);
-            continue;
+            
         }
         //login successful
         else
@@ -299,12 +328,11 @@ void handle_login(client_handle* client)
             printf("login of: %s, is successful\n", username);
             send(client->sock, error, 1, 0);
             strcpy(client->account.username, username);
-            break;
+            login = false;
         } 
 
-
-        memset(client->buffer, 0, login_length);
         free_str_array(&login_data);
+
     }
 
     
@@ -318,40 +346,71 @@ void init_encryption_client(client_handle* client)
     //rsa from server
     //pubic key to client
     //client creates the key for the SEA-DES-CBC
+    
+    //initialize the rsa keys in mpz_t type
     mpz_t key_public, key_private, n;
-    rsa_init_keys(key_public, key_private, n, RSA_KEY_LENGTH*8);
+    rsa_init_keys(key_public, key_private, n, RSA_KEY_LENGTH * 8);
+    
+    //buffer the public key and n; and send them to the client
 
-    char public_key_buffer[RSA_KEY_LENGTH];
+    size_t key_public_bytesz = mpz_sizeinbase(key_public, 256);
+    size_t n_bytesz = mpz_sizeinbase(n, 256);
+    
+    memset(buffer, 0, BUFFER_LENGTH);
+    mpz_to_buffer(buffer, key_public);
+    
+    
+    set_buffer_header(buffer, BUFFER_LENGTH, (buffer_header){.message_length = key_public_bytesz});
+    send(client->sock, buffer, BUFFER_LENGTH, 0);
 
-    mpz_to_buffer(public_key_buffer, key_public);
+    memset(buffer, 0, BUFFER_LENGTH);
+    mpz_to_buffer(buffer, n);
+    set_buffer_header(buffer, BUFFER_LENGTH, (buffer_header){.message_length = n_bytesz});
+    send(client->sock, buffer, BUFFER_LENGTH, 0);
+    
 
-    send(client->sock, public_key_buffer, RSA_KEY_LENGTH, 0);
 
-    des_encryption_data* des_data;
-
-    char encrypted_key_buffer[RSA_KEY_LENGTH];
 
     //receive the des key from the client
-    recv(client->sock, encrypted_key_buffer, RSA_KEY_LENGTH, 0);
-    
+    memset(buffer, 0, BUFFER_LENGTH);
+    recv(client->sock, buffer, BUFFER_LENGTH, 0);
+    buffer_header aes_key_encrypted_header = extract_buffer_header(buffer, BUFFER_LENGTH);
+
+    //decrypt the keys
     mpz_t encrypted_des_key_mpz, decrypted_des_key_mpz;
+    
     mpz_init(encrypted_des_key_mpz);
     mpz_init(decrypted_des_key_mpz);
 
-    //convert to mpz the buffer and then decrypt it; finally put the data into a buffer
-    buffer_to_mpz(encrypted_des_key_mpz, encrypted_key_buffer, RSA_KEY_LENGTH);
+    //convert to mpz the buffer and then decrypt it; finally put the data into the client data
 
-
+    buffer_to_mpz(encrypted_des_key_mpz, buffer, aes_key_encrypted_header.message_length);
     rsa_decrypt(decrypted_des_key_mpz, encrypted_des_key_mpz, key_private, n);
-    mpz_to_buffer(des_data->key, decrypted_des_key_mpz);
+
+
+
+    memset(buffer, 0, BUFFER_LENGTH);
+    mpz_to_buffer(buffer, decrypted_des_key_mpz);
+
+    aes_encryption_data des_data;
+    
+    aes_init(&des_data, buffer, iv_relyConn);
+    client->encryption_data = des_data;
+
+    //clear the memory
+    mpz_clear(key_public);
+    mpz_clear(key_private);
+    mpz_clear(n);
+    mpz_clear(encrypted_des_key_mpz);
+    mpz_clear(decrypted_des_key_mpz);
 }
 
 void* init_client_conn(void* args)
 {
     client_handle* client = (client_handle*)args;
 
-
     init_encryption_client(client);
+    
     handle_login(client);
 }
 
@@ -388,7 +447,7 @@ void* listen_connections(void* args)
 int main(int argc, char const* argv[])
 {
 
-    //initialize the server and create the threads for listening for connections and reading the incoming data from the users
+    //initialize the server and create the threads for listening for connections and reading the incoming data from keythe users
     init_server();
     printf("\nserver initialized\n");
 
@@ -431,3 +490,70 @@ int main(int argc, char const* argv[])
     
     return 0;
 }
+
+/*
+void init_encryption_client(client_handle* client)
+{
+
+    //rsa from server
+    //pubic key to client
+    //client creates the key for the SEA-DES-CBC
+    
+    //initialize the rsa keys in mpz_t type
+    mpz_t key_public, key_private, n;
+    rsa_init_keys(key_public, key_private, n, RSA_KEY_LENGTH * 8);
+    
+    //buffer the public key and n; and send them to the client
+
+    size_t key_public_bytesz = mpz_sizeinbase(key_public, 256);
+    size_t n_bytesz = mpz_sizeinbase(n, 256);
+    memset(buffer, 0, BUFFER_LENGTH);
+    
+
+    mpz_to_buffer(buffer, key_public);
+    memcpy(&buffer[BUFFER_LENGTH-sizeof(size_t)-1], &key_public_bytesz, sizeof(size_t));
+    send(client->sock, buffer, BUFFER_LENGTH, 0);
+
+    memset(buffer, 0, BUFFER_LENGTH);
+    mpz_to_buffer(buffer, n);
+    memcpy(&buffer[BUFFER_LENGTH-sizeof(size_t)-1], &n_bytesz, sizeof(size_t));
+    send(client->sock, buffer, BUFFER_LENGTH, 0);
+    
+    //send the private key just of testing
+
+    
+    send(client->sock, buffer,)
+
+    char encrypted_key_buffer[RSA_KEY_LENGTH];
+    char decrypted_des_key_buffer[AES_KEY_LENGTH];
+    
+    //receive the des key from the client
+    recv(client->sock, encrypted_key_buffer, n_bytesz, 0);
+
+    //decrypt the keys
+    mpz_t encrypted_des_key_mpz, decrypted_des_key_mpz;
+    
+    mpz_init(encrypted_des_key_mpz);
+    mpz_init(decrypted_des_key_mpz);
+
+    //convert to mpz the buffer and then decrypt it; finally put the data into the client data
+    buffer_to_mpz(encrypted_des_key_mpz, encrypted_key_buffer, n_bytesz);
+    gmp_printf("The encrypted key is: %Zd\n", encrypted_des_key_mpz);
+    rsa_decrypt(decrypted_des_key_mpz, encrypted_des_key_mpz, key_private, n);
+    gmp_printf("The decrypted key is: %Zd\n", decrypted_des_key_mpz);
+    mpz_to_buffer(decrypted_des_key_buffer, decrypted_des_key_mpz);
+
+    aes_encryption_data des_data;
+    
+    aes_init(&des_data, decrypted_des_key_buffer, iv_relyConn);
+    client->encryption_data = des_data;
+    
+    //clear the memory
+    mpz_clear(key_public);
+    mpz_clear(key_private);
+    mpz_clear(n);
+    mpz_clear(encrypted_des_key_mpz);
+    mpz_clear(decrypted_des_key_mpz);
+
+
+*/

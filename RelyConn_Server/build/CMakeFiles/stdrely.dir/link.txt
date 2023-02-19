@@ -1,2 +1,0 @@
-/usr/bin/ar qc libstdrely.a CMakeFiles/stdrely.dir/home/rick/Desktop/repos/RelyConn/externals/stdrely/rly_decryption.c.o
-/usr/bin/ranlib libstdrely.a

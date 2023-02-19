@@ -1,5 +1,12 @@
 #include "user_handler.h"
 
+int clients_connected = 0;
+
+pthread_mutex_t lock_disconnect;
+
+client_handle* clients[MAX_HOSTS];
+client_handle* clients_table = NULL;
+
 bool is_client_active(client_handle* client)
 {
     //printf("check if the client is active: %d\n", !(client == NULL));

@@ -10,7 +10,7 @@
                 "${workspaceFolder}/externals/uthash_lib/src",
                 "${workspaceFolder}/externals/utils",
                 "${workspaceFolder}/externals/stdrely",
-                "/usr/include/x86_64-linux-gnu"
+                "/usr/include/x86_64-linux-gnu",
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

@@ -1,5 +1,5 @@
-#ifndef STDRELY_MESSAGE_H
-#define STDRELY_MESSAGE_H
+#ifndef FORMATTER_MESSAGE_H
+#define FORMATTER_MESSAGE_H
 
 #include <stdio.h>
 #include <stdlib.h>

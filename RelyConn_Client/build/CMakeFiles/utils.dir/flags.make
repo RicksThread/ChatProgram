@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = 
+C_INCLUDES = -I/home/rick/Desktop/repos/RelyConn/RelyConn_Client/../externals/tiny-AES-c-master
 
 C_FLAGS = -Wall
 

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RLY_server.dir/src/main.c.o"
   "CMakeFiles/RLY_server.dir/src/main.c.o.d"
+  "CMakeFiles/RLY_server.dir/src/user_handler.c.o"
+  "CMakeFiles/RLY_server.dir/src/user_handler.c.o.d"
   "RLY_server"
   "RLY_server.pdb"
 )

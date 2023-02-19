@@ -192,6 +192,9 @@ RLY_client_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 RLY_client_SOURCE_DIR:STATIC=/home/rick/Desktop/repos/RelyConn/RelyConn_Client
 
+//Dependencies for the target
+utils_LIB_DEPENDS:STATIC=general;aes;
+
 
 ########################
 # INTERNAL cache entries

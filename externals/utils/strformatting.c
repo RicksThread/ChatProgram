@@ -11,6 +11,9 @@ void format_linestr(char* str)
 str_array split_str(char* str, const char* delimiter)
 {
     str_array strarr;
+    strarr.length = -1;
+    if (str[0] == NULL)
+        return strarr;
     int i = 0;
     char* save_ptr;
 
@@ -50,8 +53,23 @@ str_array split_str(char* str, const char* delimiter)
     return strarr;
 }
 
+u_int8_t is_str_array_empty(str_array* str_arr)
+{
+    if (str_arr == NULL)  
+        return 1;
+    
+    if (str_arr->length <= 0)
+        return 1;
+    
+    return 0;
+}
+
 void free_str_array(str_array* str_array)
 {
+    if (is_str_array_empty(str_array))
+        return;
+    str_array->length = -1;
+
     for(int i = 0; i < str_array->length; i++)
     {
         free(str_array->strs[i]);

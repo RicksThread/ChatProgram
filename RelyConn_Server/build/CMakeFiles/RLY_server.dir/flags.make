@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/include -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/uthash_lib/src -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/utils -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/stdrely
+C_INCLUDES = -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/include -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/stdrely -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/uthash_lib/src -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/utils -I/home/rick/Desktop/repos/RelyConn/RelyConn_Server/../externals/tiny-AES-c-master
 
 C_FLAGS = -Wall
 
